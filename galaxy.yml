@@ -1,0 +1,13 @@
+---
+namespace: my_ansible_collections
+name: ansible_cert_renew_collection
+version: 1.0.0
+description: Collection of role to renew certs on servers
+readme: readme.md
+authors:
+  - Myself
+tags:
+  - collection
+  - certificate
+repository: https://github.com/philthynz/ansible-collections.git
+

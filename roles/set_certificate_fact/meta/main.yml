@@ -1,0 +1,16 @@
+# THIS FILE IS AUTO GENERATED #
+---
+# Used to set the dependencies section in the role README
+# @meta dependencies: >
+# This role assumes <assumption/dependency 1>.
+# This role assumes <assumption/dependency 2>.
+# This role assumes <assumption/dependency 3>.
+# @end
+galaxy_info:
+  author: ""
+  description: "" # add description
+  license: no license
+  min_ansible_version: "4.0"
+
+allow_duplicates: false
+dependencies: []

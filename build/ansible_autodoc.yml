@@ -1,0 +1,45 @@
+# THIS FILE IS AUTO GENERATED AND SHOULD NOT BE CHANGED OR DELETED #
+
+# Overview:
+# This pipeline uses ansible-doctor to auto generate a README file for the roles based on the defaults/main.yml and meta/main.yml files.
+# Resources:
+# - https://github.com/thegeeklab/ansible-doctor
+
+trigger:
+ - dev
+
+pool: aaf-aci-linux-build-pool
+
+variables:
+  pushtobranch: dev
+
+jobs:
+- job:
+  displayName: ansible-doctor
+  steps:
+  - checkout: self
+    persistCredentials: true
+  - task: bash@3
+    displayName: Install ansible-doctor
+    inputs:
+      targetType: 'inline'
+      script: |
+        export LC_ALL=C.UTF-8
+        pip3 install ansible-doctor
+  - task: bash@3
+    displayName: Generate role README
+    inputs:
+      targetType: 'inline'
+      script: |
+        for subdir in *; do
+          git checkout $(pushtobranch)
+          cd /$(Build.SourcesDirectory)/roles/$subdir
+          ansible-doctor -f
+          git add "./*README.md"
+          git config --global user.email "ansible-doctor@email.com"
+          git config --global user.name "Ansible Doctor"
+          git commit -m "Adding or Updating README.md with ansible-doctor"
+          git push origin $(pushtobranch) -f
+        done
+      workingDirectory: $(Build.SourcesDirectory)/roles
+    

@@ -1,0 +1,9 @@
+# THIS FILE IS AUTO GENERATED #
+---
+example_variable_one: ""
+# @var example_variable_one:description: Description of the variable.
+# @var example_variable_one:example: example_variable_one: "helloworld"
+
+example_variable_two: []
+# @var example_variable_two:description: Description of the variable.
+# @var example_variable_two:example: example_variable_two: []

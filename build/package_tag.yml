@@ -1,0 +1,41 @@
+# THIS FILE IS AUTO GENERATED AND SHOULD NOT BE CHANGED OR DELETED #
+
+# Overview:
+# This pipeline packages and tags each release.
+# Resources:
+
+trigger:
+ - main
+
+pool: aaf-aci-linux-build-pool
+
+jobs:
+- job:
+  displayName: Publish Modules and Tag
+  steps:
+  - checkout: self
+    persistCredentials: true
+  - task: UniversalPackages@0
+    displayName: Publish Ansible Collections
+    inputs:
+      command: 'publish'
+      publishDirectory: '$(Build.SourcesDirectory)/'
+      feedsToUsePublish: 'internal'
+      vstsFeedPublish: 'a770b1ea-5c76-429d-83df-56bd69d7e3b9/4de90a89-acb2-4dd1-a03a-bc67778d25da'
+      publishPackageMetadata: false
+      vstsFeedPackagePublish: '$(Build.Repository.Name)'
+      versionOption: 'minor'
+      packagePublishDescription: 'Ansible Collections'
+      publishedPackageVar: 'PackageInfo'
+  - task: Bash@3
+    displayName: Tag branch
+    inputs:
+      targetType: 'inline'
+      script: |
+        echo "Tagging branch with version "${PACKAGEINFO//[^0-9.]/}""
+        git tag "${PACKAGEINFO//[^0-9.]/}"
+        echo "Tagging branch with latest"
+        git tag --force latest
+        echo "Pushing tags"
+        git push --tags --force
+      workingDirectory: '$(Build.SourcesDirectory)'

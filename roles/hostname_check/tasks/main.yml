@@ -1,0 +1,4 @@
+---
+- name: Test shell
+  ansible.windows.win_shell:
+    cmd: hostname

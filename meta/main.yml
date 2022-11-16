@@ -1,0 +1,12 @@
+# THIS FILE IS AUTO GENERATED #
+---
+# This file enables roles to be imported directly without using a collection import
+galaxy_info:
+  author: Myself
+  description: "Renew certificates on Servers"
+  licence: ""
+  min_ansible_version: ""
+  platforms: ""
+    
+allow_duplicates: false
+dependencies: []

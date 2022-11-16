@@ -1,0 +1,15 @@
+---
+- name: Get Keyvault info
+  azure.azcollection.azure_rm_keyvault_info:
+    resource_group: "{{ keyvault_resource_group_name }}"
+    name: "{{ keyvault_name }}"
+  register: keyvault_uri
+
+- name: Set Keyvault URI fact
+  set_fact: keyvaulturi="{{ keyvault_uri['keyvaults'][0]['vault_uri'] }}"
+
+- name: Set cert fact
+  azure.azcollection.azure_rm_keyvaultsecret_info:
+    vault_uri: "{{ keyvaulturi }}"
+    name: "{{ certificate_name }}"
+  register: cert_fact
